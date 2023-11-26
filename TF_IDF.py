@@ -183,7 +183,7 @@ def liste_totale(repertoire, option):
 def IDF(repertoire):
     Liste = liste_totale(repertoire, 0)
     L = liste_totale(repertoire,1)
-    # On initialise 2 variables Liste et L qui continennent respectivement l'ensemble des mots du corpus de texte et l'ensemble des mots dans chaque texte
+    # On initialise 2 variables Liste et L qui contiennent respectivement l'ensemble des mots du corpus de texte et l'ensemble des mots dans chaque texte
     dico_mot = {}    
     # On initialise un dictionnaire dico_mot qui contiendra le nombre de texte dans lequel est chaque mot
     for j in Liste:
@@ -204,7 +204,9 @@ def IDF(repertoire):
 def score_final(repertoire):
     Liste_totale = liste_totale(repertoire_cleaned, 0)
     dico_idf = IDF(repertoire_cleaned)
+    # On initialise une variable Liste_totale, qui contient  l'ensemble des mots du corpus de texte, et un dictionnaire dico_idf, qui contient les scores IDF de chaque mot
     TFIDF = []
+    # On initialise une liste qui contiendra les scores finaux de chaque mot pour chaque texte
     for i in range(0,len(Liste_totale)):
         TFIDF.append([])
         valeuridf = dico_idf[Liste_totale[i]]
