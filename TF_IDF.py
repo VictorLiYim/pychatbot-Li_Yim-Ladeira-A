@@ -22,6 +22,8 @@ def tri_selection(t):
 
 def take_name():
     noms = [nom.split('_')[1].split('.')[0] for nom in files_names]
+    #l'indice indique quelle partie on veut garder. On suprrime la première partie du nom du fichier avec l epremier split
+    #ensuite on fait un deuxième split pour supprimer cette fois ci tout ce qui est écrit après le point
     # L'indice indique quelle partie on veut garder. On suprrime la première partie du nom du fichier avec le premier split
     # Ensuite on fait un deuxième split pour supprimer cette fois ci tout ce qui est écrit après le point
     nom = ""
@@ -96,6 +98,9 @@ print(copy_file(files_names))
 
 def count_TF(chaine, mot):
     chaine_de_caractere = ""
+    for i in chaine:
+        if i != " " and ord(i)!=10:
+            chaine_de_caractere += i
     # On initialise une chaine de caractère ne contenant aucun caractère
     for i in chaine:
         if i != " " and ord(i)!=10:
@@ -116,7 +121,6 @@ def count_TF(chaine, mot):
     return mot
     # On refait la même manipulation une dernière fois pour le dernier mot du fichier qui n'a pas été comptabilisé dans la boucle, puis on retourne le dictionnaire
 
-
 def TF(directory):
     occurence = {}
     for i in files_names:
@@ -135,23 +139,19 @@ def TF_document(repertoire,name):
             if name in fichier.name:  # Vérifier si le nom est dans le nom de fichier
                 for ligne in fichier:
                     occurence = count_TF(ligne, occurence)
-    # Pour chaque document, on parcourt les fichiers et on compte le nombre d'occurences de chaque mot grâce à la fonction count_TF
     fichier.close()
     return occurence
-    # On retourne le dictionnaire occurence
 
 def TF_president(repertoire, name):
     occurence = {}
     # On crée un dictionnaire qui contiendra le nombre d'occurences de chaque mot pour chaque président
-    for i in files_names:
+    for i in files_names:   # Pour chaque document, on parcourt les fichiers et on compte le nombre d'occurences de chaque mot grâce à la fonction count_TF
         with open(repertoire+"/" + i, "r") as fichier:
             if name in fichier.name:  # Vérifier si le nom est dans le nom de fichier
                 for ligne in fichier:
                     occurence = count_TF(ligne, occurence)
-    # Pour chaque président, on parcourt les fichiers et on compte le nombre d'occurences de chaque mot grâce à la fonction count_TF
     fichier.close()
     return occurence
-    # On retourne le dictionnaire occurence
 
 def liste_totale(repertoire, option):
     L1,L2,L3,L4,L5,L6,L7,L8 = [],[],[],[],[],[],[],[]
@@ -167,11 +167,12 @@ def liste_totale(repertoire, option):
                 for word in phrase.split():
                     if word not in L[n]:
                         L[n].append(word)
-            # Les deux "for" permettent de prendre chaque mot individuellement, puis les ajouter aux listes L1 à L8 en fonction du fichier
+              # Les deux "for" permettent de prendre chaque mot individuellement, puis les ajouter aux listes L1 à L8 en fonction du fichier
         n+=1
-        # On incrémente la variable n pour pouvoir passer de L1 à L2, puis à L3 etc...
     Liste = set(L1+L2+L3+L4+L5+L6+L7+L8)
     Liste = tri_selection(list(Liste))
+        n+=1
+        # On incrémente la variable n pour pouvoir passer de L1 à L2, puis à L3 etc...
     # On crée un set avec toutes les valeurs de L1, L2, etc... pour éliminer les doublons, puis on la convertit en liste et on la trie grâce à la fonction "tri_selection"
     f1.close()
     if option == 0:
@@ -183,6 +184,7 @@ def liste_totale(repertoire, option):
 def IDF(repertoire):
     Liste = liste_totale(repertoire, 0)
     L = liste_totale(repertoire,1)
+    dico_mot = {}
     # On initialise 2 variables Liste et L qui contiennent respectivement l'ensemble des mots du corpus de texte et l'ensemble des mots dans chaque texte
     dico_mot = {}    
     # On initialise un dictionnaire dico_mot qui contiendra le nombre de texte dans lequel est chaque mot
@@ -192,6 +194,7 @@ def IDF(repertoire):
             if j in L[h]:
                 cpt += 1
         dico_mot[j] = cpt
+    dico_idf = {}
     # On compte le nombre de texte dans lequel est chaque mot et on ajoute cette valeur dans le dictionnaire
     dico_idf = {}
     # On initialise un dictionnaire dico_idf qui contiendra les scores IDF de chaque mot.
@@ -202,11 +205,9 @@ def IDF(repertoire):
     # On calcule le score IDF pour chaque mot et on les ajoute dans le dictionnaire qu'on retourne juste après
 
 def score_final(repertoire):
-    Liste_totale = liste_totale(repertoire_cleaned, 0)
-    dico_idf = IDF(repertoire_cleaned)
-    # On initialise une variable Liste_totale, qui contient  l'ensemble des mots du corpus de texte, et un dictionnaire dico_idf, qui contient les scores IDF de chaque mot
-    TFIDF = []
-    # On initialise une liste qui contiendra les scores finaux de chaque mot pour chaque texte
+    Liste_totale = liste_totale(repertoire_cleaned, 0) #liste de tout les mots de tout les fichiers réunis
+    dico_idf = IDF(repertoire_cleaned) #dictionnaire de toutes les valeurs de IDF
+    TFIDF = []# On initialise une liste qui contiendra les scores finaux de chaque mot pour chaque texte
     for i in range(0,len(Liste_totale)):
         TFIDF.append([])
         valeuridf = dico_idf[Liste_totale[i]]
@@ -219,4 +220,3 @@ def score_final(repertoire):
             valeur_tfidf = valeurtf*valeuridf
             TFIDF[i].append(valeur_tfidf)
     return TFIDF
-

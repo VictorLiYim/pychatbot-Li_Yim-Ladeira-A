@@ -2,6 +2,13 @@ from TF_IDF import *
 
 def liste_mot_non_importants(Matrice):
     liste_non_important = []
+    for i in Matrice:
+        cpt = 0
+        for j in i:
+            if j != 0:
+                cpt+=1
+        if cpt == 0:
+            liste_non_important.append(i)
     Liste = liste_totale(repertoire, 0)
     # On crée une liste dans laquelle on va rajouter tous les mots nons-importants
     for i in range(0, len(Matrice)):
@@ -63,6 +70,8 @@ def recherche_president(repertoire, mot):
     ocurrence = {} #dictionnaire des ocurrences du mot
     max = 0 #permet de savoir la plus grande ocurrence
     nom = "" #permettra de renvoyer le nom du président ayant cité le plus de fois ce mot
+    if mot not in liste_totale(repertoire, 0):
+        return "Ce mot n'est pas cité dans aucuns des discours enregistrés."    
     for name in noms:
         dico = TF_president(repertoire, name)
         if mot in dico:
@@ -73,6 +82,16 @@ def recherche_president(repertoire, mot):
             max = ocurrence[president] #récupère la valeur de la plus grande ocurrence du mot recherché
             nom = president #récupère le nom du président qui a la plus grande ocurrence du mot recherché
     return "Voici la liste des présidents qui ont cité le mot", mot, liste_president, "et celui qui a le plus répété ce mot est", nom, max, "fois."
+
+def premier_pres_climat(repertoire):
+    liste_presidents = ["deGaulle", "Pompidou", "Giscard dEstaing", "Mitterrand", "Chirac", "Sarkozy", "Hollande", "Macron"]
+    # On crée une liste avec tous les présidents de la Ve république dans l'ordre chronologique pour que la fonction fonctionne si l'on rajoute des textes d'autres présidents
+    for i in liste_presidents:
+        if i in noms:
+            liste_mots = TF_president(repertoire,i)
+            if "clima" in str(liste_mots.keys()) or "écologi" in str(liste_mots.keys()):
+                return i
+    # On parcourt chaque texte dans l'ordre chronologique pour voir si le texte contient un mot commençant par "clima" ou "écologi" pour prendre en compte les mots "écologiques", "climatique", ect... puis on retourne le nom du président
 
 def recherche_mot(repertoire):
     matrice = score_final(repertoire)
@@ -86,4 +105,3 @@ def recherche_mot(repertoire):
         if cpt == 8: #si le compteur est égal à 8 cela signifie que le mot concerné est présent dans les 8 documents
             liste_mot.append(Liste[mot]) 
     return liste_mot
-
