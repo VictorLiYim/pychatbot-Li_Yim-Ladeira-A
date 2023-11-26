@@ -100,7 +100,7 @@ def count_TF(chaine, mot):
     for i in chaine:
         if i != " " and ord(i)!=10:
             chaine_de_caractere += i
-            # Pour chaque chaine de caractère, tant que 
+            # Pour chaque chaine de caractère, on ajoute à la chaine de caractère tous les caractères jusqu'à ce qu'il y ait un espace ou un retour à la ligne
         else:
             if chaine_de_caractere != "":
                 if chaine_de_caractere in mot.keys():
@@ -108,11 +108,13 @@ def count_TF(chaine, mot):
                 else:
                     mot[chaine_de_caractere] = 1
             chaine_de_caractere = ""
+        # Lorsqu'on rencontre un espace ou un retour à la ligne, on vérifie si le mot appartient au dictionnaire "mot" en temps que clef. Si c'est le cas, on rajoute 1 occurence pour le mot, sinon on le rajoute en temps que clef et on initialise sa valeur à 1. Enfin, on réinitialise la chaine de caractère.
     if chaine_de_caractere in mot.keys():
         mot[chaine_de_caractere] += 1
     else:
         mot[chaine_de_caractere] = 1
     return mot
+    # On refait la même manipulation une dernière fois pour le dernier mot du fichier qui n'a pas été comptabilisé dans la boucle, puis on retourne le dictionnaire
 
 
 def TF(directory):
