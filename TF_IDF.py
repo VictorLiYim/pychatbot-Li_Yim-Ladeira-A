@@ -95,11 +95,7 @@ def copy_file(file):
 print(copy_file(files_names))
 
 def count_TF(chaine, mot):
-    chaine_de_caractere = ""
-    for i in chaine:
-        if i != " " and ord(i)!=10:
-            chaine_de_caractere += i
-    # On initialise une chaine de caractère ne contenant aucun caractère
+    chaine_de_caractere = ""    # On initialise une chaine de caractère ne contenant aucun caractère
     for i in chaine:
         if i != " " and ord(i)!=10:
             chaine_de_caractere += i
@@ -194,7 +190,6 @@ def IDF(repertoire):
         dico_mot[j] = cpt
     dico_idf = {}
     # On compte le nombre de texte dans lequel est chaque mot et on ajoute cette valeur dans le dictionnaire
-    dico_idf = {}
     # On initialise un dictionnaire dico_idf qui contiendra les scores IDF de chaque mot.
     for k in dico_mot:
         score = log10(len(files_names)/(dico_mot[k])+1)
