@@ -14,6 +14,7 @@ Fonctionnalités principales :
   - Affichier quels sont les mots que tous les présidents ont évoqué.
 
 Instructions d'execution :
-  - Lancer le programme sur le main pour appeler la fonction menu,
-  - Suivre les instructions écrites en console pour séléctionner l'action souhaitée,
+  - Lancer le programme sur le main pour appeler la fonction menu
+  - Suivre les instructions écrites en console pour séléctionner l'action souhaitée
+  - Intervalle de 3 secondes entre les affichages
   - Pour quitter le programme, écrire "7".
