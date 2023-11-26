@@ -147,38 +147,51 @@ def TF_president(repertoire, name):
 
 def liste_totale(repertoire, option):
     L1,L2,L3,L4,L5,L6,L7,L8 = [],[],[],[],[],[],[],[]
+    # On crée une liste pour chaque texte, chaque liste contenant l'ensemble des mots de chaque texte
     n = 0
+    # On initialise une variable n pour séléctionner les listes ci dessus
     for i in files_names:
+        # On parcours l'ensemble des fichiers
         L = [L1,L2,L3,L4,L5,L6,L7,L8]
+        # On crée une liste qui contient les listes L1 à L8 pour pouvoir les remplir
         with open(repertoire+"/" + i, "r") as f1:
              for phrase in f1:
                 for word in phrase.split():
                     if word not in L[n]:
                         L[n].append(word)
+            # Les deux "for" permettent de prendre chaque mot individuellement, puis les ajouter aux listes L1 à L8 en fonction du fichier
         n+=1
+        # On incrémente la variable n pour pouvoir passer de L1 à L2, puis à L3 etc...
     Liste = set(L1+L2+L3+L4+L5+L6+L7+L8)
     Liste = tri_selection(list(Liste))
+    # On crée un set avec toutes les valeurs de L1, L2, etc... pour éliminer les doublons, puis on la convertit en liste et on la trie grâce à la fonction "tri_selection"
     f1.close()
     if option == 0:
         return Liste
     else:
         return L
+    # En fonction du paramètre "option", on retourne soit la liste contenant l'ensemble des mots du corpus de texte sans les doublons, soit la liste L contenant l'ensemble des mots de chaque texte 
     
 def IDF(repertoire):
     Liste = liste_totale(repertoire, 0)
     L = liste_totale(repertoire,1)
-    dico_mot = {}
+    # On initialise 2 variables Liste et L qui continennent respectivement l'ensemble des mots du corpus de texte et l'ensemble des mots dans chaque texte
+    dico_mot = {}    
+    # On initialise un dictionnaire dico_mot qui contiendra le nombre de texte dans lequel est chaque mot
     for j in Liste:
         cpt = 0
         for h in range(0, 8):
             if j in L[h]:
                 cpt += 1
         dico_mot[j] = cpt
+    # On compte le nombre de texte dans lequel est chaque mot et on ajoute cette valeur dans le dictionnaire
     dico_idf = {}
+    # On initialise un dictionnaire dico_idf qui contiendra les scores IDF de chaque mot.
     for k in dico_mot:
         score = log10(len(files_names)/(dico_mot[k])+1)
         dico_idf[k] = score
     return dico_idf
+    # On calcule le score IDF pour chaque mot et on les ajoute dans le dictionnaire qu'on retourne juste après
 
 def score_final(repertoire):
     Liste_totale = liste_totale(repertoire_cleaned, 0)
@@ -196,14 +209,4 @@ def score_final(repertoire):
             valeur_tfidf = valeurtf*valeuridf
             TFIDF[i].append(valeur_tfidf)
     return TFIDF
-
-def premier_pres_climat():
-    liste_presidents = ["deGaulle", "Pompidou", "Giscard dEstaing", "Mitterrand", "Chirac", "Sarkozy", "Hollande", "Macron"]
-    # On crée une liste avec tous les présidents de France dans l'ordre chronologique
-    for i in liste_presidents:
-        if i in noms:
-            liste_mots = TF_president(i)
-            if "clima" in str(liste_mots.keys()) or "écologi" in str(liste_mots.keys()):
-                return i
-    # On parcourt chaque texte dans l'ordre chronologique pour voir si le texte contient un mot commençant par "clima" ou "écologi" pour prendre en compte les mots "écologiques", "climatique", ect... puis on retourne le nom du président
 
