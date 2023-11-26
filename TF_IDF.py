@@ -1,5 +1,6 @@
 import os
 from math import *
+
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
@@ -129,21 +130,15 @@ def TF_document(repertoire,name):
     fichier.close()
     return occurence
 
-def TF_document2(repertoire):#paramètre sans paramètre nom au cas où on a pas le droit de rajouter des paramètre dans TF
-    liste_tf_doc = []
-    for j in noms:
-        name = j
-        j = {}
-        for i in files_names:
-            with open(repertoire +"/" +i, "r") as fichier:
-                if name in fichier.name:  # Vérifier si le nom est dans le nom de fichier
-                    for ligne in fichier:
-                        j = count_TF(ligne, j)
-        liste_tf_doc.append([name, j])
-        fichier.close()
-    for i in liste_tf_doc:
-        print(i, "\n")
-    return liste_tf_doc
+def TF_president(repertoire, name):
+    occurence = {}
+    for i in files_names:
+        with open(repertoire+"/" + i, "r") as fichier:
+            if name in fichier.name:  # Vérifier si le nom est dans le nom de fichier
+                for ligne in fichier:
+                    occurence = count_TF(ligne, occurence)
+    fichier.close()
+    return occurence
 
 def liste_totale(repertoire, option):
     L1,L2,L3,L4,L5,L6,L7,L8 = [],[],[],[],[],[],[],[]
@@ -197,4 +192,13 @@ def score_final(repertoire):
             TFIDF[i].append(valeur_tfidf)
     return TFIDF
 
-print(score_final(repertoire_cleaned))
+def premier_pres_climat():
+    liste_presidents = ["deGaulle", "Pompidou", "Giscard dEstaing", "Mitterrand", "Chirac", "Sarkozy", "Hollande", "Macron"]
+    # On crée une liste avec tous les présidents de France dans l'ordre chronologique
+    for i in liste_presidents:
+        if i in noms:
+            liste_mots = TF_president(i)
+            if "clima" in str(liste_mots.keys()) or "écologi" in str(liste_mots.keys()):
+                return i
+    # On parcourt chaque texte dans l'ordre chronologique pour voir si le texte contient un mot commençant par "clima" ou "écologi" pour prendre en compte les mots "écologiques", "climatique", ect... puis on retourne le nom du président
+
