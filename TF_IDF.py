@@ -22,8 +22,8 @@ def tri_selection(t):
 
 def take_name():
     noms = [nom.split('_')[1].split('.')[0] for nom in files_names]
-    #l'indice indique quelle partie on veut garder. On suprrime la première partie du nom du fichier avec l epremier split
-    #ensuite on fait un deuxième split pour supprimer cette fois ci tout ce qui est écrit après le point
+    # L'indice indique quelle partie on veut garder. On suprrime la première partie du nom du fichier avec le premier split
+    # Ensuite on fait un deuxième split pour supprimer cette fois ci tout ce qui est écrit après le point
     nom = ""
     verif = True
     for i in range(0, len(noms)-1):
