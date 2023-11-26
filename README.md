@@ -8,4 +8,8 @@ Fonctionnalités principales :
   - Mesurer l'importance d'un mot dans un corpus de texte,
   - Afficher la liste des mots les moins importants dans un corpus de texte,
   - Afficher les mots avec le score le plus élevé,
-  - Indiquer les mots les plus répétés par le président Chirac,
+  - Afficher les mots les plus répétés par un président,
+  - Afficher le ou les présidents qui ont dit "Nation" et préciser celui qui l'a dit le plus de fois,
+  - Afficher quel président du corpus de texte a parlé en premier d'écologie ou de climat,
+  - Affichier quels sont les mots que tous les présidents ont évoqué.
+
