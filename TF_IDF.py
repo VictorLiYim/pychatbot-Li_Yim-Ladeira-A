@@ -96,9 +96,11 @@ print(copy_file(files_names))
 
 def count_TF(chaine, mot):
     chaine_de_caractere = ""
+    # On initialise une chaine de caractère ne contenant aucun caractère
     for i in chaine:
         if i != " " and ord(i)!=10:
             chaine_de_caractere += i
+            # Pour chaque chaine de caractère, tant que 
         else:
             if chaine_de_caractere != "":
                 if chaine_de_caractere in mot.keys():
@@ -111,6 +113,7 @@ def count_TF(chaine, mot):
     else:
         mot[chaine_de_caractere] = 1
     return mot
+
 
 def TF(directory):
     occurence = {}
