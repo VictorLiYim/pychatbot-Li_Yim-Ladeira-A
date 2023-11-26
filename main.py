@@ -12,7 +12,7 @@ def menu():
                             "-5)Afficher le premier président qui a parlé du climat et de l'écologie\n"
                             "-6)Afficher les mots qui ont été utilisé par tous les présidents\n"
                             "-7)Si vous voulez quitter saisissez quitter\n"
-                            "Veuillez saisir un entier parmi les 6 propositions\n"
+                            "Veuillez saisir un entier parmi les 7 propositions\n"
                             "Réponse : "))
         while not (option in [1,2,3,4,5,6,7]):
             print("Vous n'avez pas inscrit la bonne requête. Veuillez réessayer")
@@ -24,7 +24,7 @@ def menu():
                             "-5)Afficher le premier président qui a parlé du climat et de l'écologie\n"
                             "-6)Afficher les mots qui ont été utilisé par tous les présidents\n"
                             "-7)Si vous voulez quitter saisissez quitter\n"
-                            "Veuillez saisir un entier parmi les 6 propositions\n"
+                            "Veuillez saisir un entier parmi les 7 propositions\n"
                             "Réponse : "))
         if option == 1:
             print(liste_mot_non_importants(score_final(repertoire_cleaned)))
@@ -72,5 +72,6 @@ def menu():
             time.sleep(3)
         else:
             continuer = False
+            break
 
 print(menu())
