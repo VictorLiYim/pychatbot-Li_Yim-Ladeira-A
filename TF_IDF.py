@@ -165,7 +165,6 @@ def liste_totale(repertoire, option):
         n+=1
     Liste = set(L1+L2+L3+L4+L5+L6+L7+L8)
     Liste = tri_selection(list(Liste))
-        n+=1
         # On incrémente la variable n pour pouvoir passer de L1 à L2, puis à L3 etc...
     # On crée un set avec toutes les valeurs de L1, L2, etc... pour éliminer les doublons, puis on la convertit en liste et on la trie grâce à la fonction "tri_selection"
     f1.close()
