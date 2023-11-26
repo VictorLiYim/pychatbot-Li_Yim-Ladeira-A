@@ -1,5 +1,8 @@
 import os
 from math import *
+'''
+module TF-IDF.py
+'''
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
@@ -144,6 +147,16 @@ def TF_document2(repertoire):#paramètre sans paramètre nom au cas où on a pas
     for i in liste_tf_doc:
         print(i, "\n")
     return liste_tf_doc
+
+def TF_president(repertoire, name):
+    occurence = {}
+    for i in files_names:
+        with open(repertoire+"/" + i, "r") as fichier:
+            if name in fichier.name:  # Vérifier si le nom est dans le nom de fichier
+                for ligne in fichier:
+                    occurence = count_TF(ligne, occurence)
+    fichier.close()
+    return occurence
 
 def liste_totale(repertoire, option):
     L1,L2,L3,L4,L5,L6,L7,L8 = [],[],[],[],[],[],[],[]
