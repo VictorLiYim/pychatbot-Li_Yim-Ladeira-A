@@ -1,3 +1,2 @@
 # PyChatBot-Li_Yim-Ladeira
-Li Yim Victor
-Ladeira Evan
+Projet d'informatique, L1 EFREI, Li Yim Victor, Evan Ladeira
