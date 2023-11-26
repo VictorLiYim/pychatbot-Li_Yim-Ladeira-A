@@ -76,6 +76,7 @@ def copy_file(file):
              lignes = f1.readlines()
              for mot in lignes:
                 for j in mot:
+                # On ouvre chaque fichiers et on regarde chaque caractère individuellement
                     if ord(j)>= 65 and ord(j)<=90:
                         j = chr(ord(j)+32)
                     elif ord(j) == 39:
@@ -86,6 +87,7 @@ def copy_file(file):
                             or (ord(j)>= 123 and ord(j)<=126):
                         j = " "
                     f2.write(j)
+                    # On re écrit chaque caractère dans le dossier "cleaned" en écrivant tous les caractères en minuscule et en enlevant toute ponctuation 
     f1.close()
     f2.close()
     return " "
