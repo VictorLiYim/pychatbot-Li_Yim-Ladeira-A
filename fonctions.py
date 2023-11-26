@@ -9,10 +9,21 @@ def liste_mot_non_importants(Matrice):
                 cpt+=1
         if cpt == 0:
             liste_non_important.append(i)
+    Liste = liste_totale(repertoire, 0)
+    # On crée une liste dans laquelle on va rajouter tous les mots nons-importants
+    for i in range(0, len(Matrice)):
+        cpt = 0 #initialisation du compteur permettant de savoir si le score tf-idf a n ligne permettant de savoir si on considère le mot comme non important
+        for j in Matrice[i]:
+            if j != 0:
+                cpt+=1
+        if cpt == 0:
+            liste_non_important.append(Liste[i])
+    # On parcourt la matrice avec les scores finaux et on ajoute à la liste les mots ayant un score de 0
     if liste_non_important == []:
         return "Il n'y a pas de mots considéré comme non important"
     else:
         return liste_non_important
+    # Si la liste contient des valeurs, on retourne la liste contenant ces valeurs, sinon on retourne la chaine de caractère disant qu'il n'y a aucun mot non important
 
 def liste_score_important(Matrice):
     Liste = liste_totale(repertoire_cleaned, 0)
@@ -43,6 +54,16 @@ def mot_plus_repete(repertoire, president):
         elif dico[tf] == max and tf not in liste_non_mots and len(tf)>4:
             liste.append(tf) #si la valeur TF du mot est la même que le maximum au lieu de réinitialiser on l'insère dans la liste directement
     return liste, max, "fois"
+  
+def premier_pres_climat():
+    liste_presidents = ["deGaulle", "Pompidou", "Giscard dEstaing", "Mitterrand", "Chirac", "Sarkozy", "Hollande", "Macron"]
+    # On crée une liste avec tous les présidents de la Ve république dans l'ordre chronologique pour que la fonction fonctionne si l'on rajoute des textes d'autres présidents
+    for i in liste_presidents:
+        if i in noms:
+            liste_mots = TF_president(i)
+            if "clima" in str(liste_mots.keys()) or "écologi" in str(liste_mots.keys()):
+                return i
+    # On parcourt chaque texte dans l'ordre chronologique pour voir si le texte contient un mot commençant par "clima" ou "écologi" pour prendre en compte les mots "écologiques", "climatique", ect... puis on retourne le nom du président
 
 def recherche_president(repertoire, mot):
     liste_president = [] #liste des présidents ayant cité le mot recherché
