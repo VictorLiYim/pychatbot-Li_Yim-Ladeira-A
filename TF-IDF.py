@@ -160,22 +160,30 @@ def TF_president(repertoire, name):
 
 def liste_totale(repertoire, option):
     L1,L2,L3,L4,L5,L6,L7,L8 = [],[],[],[],[],[],[],[]
+    # On crée une liste pour chaque texte, chaque liste contenant l'ensemble des mots de chaque texte
     n = 0
+    # On initialise une variable n pour séléctionner les listes ci dessus
     for i in files_names:
+        # On parcours l'ensemble des fichiers
         L = [L1,L2,L3,L4,L5,L6,L7,L8]
+        # On crée une liste qui contient les listes L1 à L8 pour pouvoir les remplir
         with open(repertoire+"/" + i, "r") as f1:
              for phrase in f1:
                 for word in phrase.split():
                     if word not in L[n]:
                         L[n].append(word)
+            # Les deux "for" permettent de prendre chaque mot individuellement, puis les ajouter aux listes L1 à L8 en fonction du fichier
         n+=1
+        # On incrémente la variable n pour pouvoir passer de L1 à L2, puis à L3 etc...
     Liste = set(L1+L2+L3+L4+L5+L6+L7+L8)
     Liste = tri_selection(list(Liste))
+    # On crée un set avec toutes les valeurs de L1, L2, etc... pour éliminer les doublons, puis on la convertit en liste et on la trie grâce à la fonction "tri_selection"
     f1.close()
     if option == 0:
         return Liste
     else:
         return L
+    # En fonction du paramètre "option", on retourne soit la liste contenant l'ensemble des mots du corpus de texte sans les doublons, soit la liste L contenant l'ensemble des mots de chaque texte 
     
 def IDF(repertoire):
     Liste = liste_totale(repertoire, 0)
