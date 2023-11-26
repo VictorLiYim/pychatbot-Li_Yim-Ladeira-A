@@ -13,6 +13,7 @@ Fonctionnalités principales :
   - Afficher quel président du corpus de texte a parlé en premier d'écologie ou de climat,
   - Affichier quels sont les mots que tous les présidents ont évoqué.
 
-INSTRUCTION D'EXECUTION:
-Lancer le programme sur le main permettra d'appeler la fonction menu qui se déclanchera par elle même. Ensuite une boucle sera lancée et pour la quitter comme indiqué lors de
-l'éxecution de la fonction il faudra ecrire 7 pour terminer le programme.
+Instructions d'execution :
+  - Lancer le programme sur le main pour appeler la fonction menu,
+  - Suivre les instructions écrites en console pour séléctionner l'action souhaitée,
+  - Pour quitter le programme, écrire "7".
