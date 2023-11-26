@@ -127,23 +127,29 @@ repertoire_cleaned = "/workspaces/pychatbot-Li_Yim-Ladeira-A/cleaned"
 
 def TF_document(repertoire,name):
     occurence = {}
+    # On crée un dictionnaire qui contiendra le nombre d'occurences de chaque mot pour chaque document
     for i in files_names:
         with open(repertoire+"/" + i, "r") as fichier:
             if name in fichier.name:  # Vérifier si le nom est dans le nom de fichier
                 for ligne in fichier:
                     occurence = count_TF(ligne, occurence)
+    # Pour chaque document, on parcourt les fichiers et on compte le nombre d'occurences de chaque mot grâce à la fonction count_TF
     fichier.close()
     return occurence
+    # On retourne le dictionnaire occurence
 
 def TF_president(repertoire, name):
     occurence = {}
+    # On crée un dictionnaire qui contiendra le nombre d'occurences de chaque mot pour chaque président
     for i in files_names:
         with open(repertoire+"/" + i, "r") as fichier:
             if name in fichier.name:  # Vérifier si le nom est dans le nom de fichier
                 for ligne in fichier:
                     occurence = count_TF(ligne, occurence)
+    # Pour chaque président, on parcourt les fichiers et on compte le nombre d'occurences de chaque mot grâce à la fonction count_TF
     fichier.close()
     return occurence
+    # On retourne le dictionnaire occurence
 
 def liste_totale(repertoire, option):
     L1,L2,L3,L4,L5,L6,L7,L8 = [],[],[],[],[],[],[],[]
