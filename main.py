@@ -1,9 +1,8 @@
 from fonctions import *
 import time
 def menu():
-    global president
-    verifier = True
-    while verifier:
+    continuer = True
+    while continuer:
         option = int(input("\nQue voulez-vous faire entre :\n"
                             "-1)Renvoyer la liste des mots non importants\n"
                             "-2)Renvoyer la liste des mots ayant le score TF-IDF le plus élevé\n"
@@ -72,6 +71,5 @@ def menu():
             time.sleep(3)
         else:
             continuer = False
-            break
 
 print(menu())
