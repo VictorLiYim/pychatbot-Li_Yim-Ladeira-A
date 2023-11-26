@@ -14,9 +14,9 @@ Fonctionnalités principales :
   - Affichier quels sont les mots que tous les présidents ont évoqué.
 
 Instructions d'execution :
-  - Avant de lancer le programme principal il ne faut pas oublier de modifier tout les chemins indiqué dans les fonctions
-  - Modifier le chemin pour repertoire_cleaned
-  - Lancer le programme sur le main pour appeler la fonction menu
-  - Suivre les instructions écrites en console pour séléctionner l'action souhaitée
-  - Intervalle de 3 secondes entre les affichages
+  - Avant de lancer le programme principal, il ne faut pas oublier de modifier tous les chemins indiqués dans les fonctions,
+  - Modifier le chemin pour repertoire_cleaned,
+  - Lancer le programme sur le main pour appeler la fonction menu,
+  - Suivre les instructions écrites en console pour sélectionner l'action souhaitée,
+  - Attendre 3 secondes entre chaque commande pour laisser le temps au programme de bien tout afficher,
   - Pour quitter le programme, écrire "7".
