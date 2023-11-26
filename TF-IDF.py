@@ -78,6 +78,7 @@ def copy_file(file):
              lignes = f1.readlines()
              for mot in lignes:
                 for j in mot:
+                # On ouvre chaque fichiers et on regarde chaque caractère individuellement
                     if ord(j)>= 65 and ord(j)<=90:
                         j = chr(ord(j)+32)
                     elif ord(j) == 39:
@@ -88,6 +89,7 @@ def copy_file(file):
                             or (ord(j)>= 123 and ord(j)<=126):
                         j = " "
                     f2.write(j)
+                    # On re écrit chaque caractère dans le dossier "cleaned" en écrivant tous les caractères en minuscule et en enlevant toute ponctuation 
     f1.close()
     f2.close()
     return " "
@@ -96,9 +98,11 @@ print(copy_file(files_names))
 
 def count_TF(chaine, mot):
     chaine_de_caractere = ""
+    # On initialise une chaine de caractère ne contenant aucun caractère
     for i in chaine:
         if i != " " and ord(i)!=10:
             chaine_de_caractere += i
+            # Pour chaque chaine de caractère, tant que 
         else:
             if chaine_de_caractere != "":
                 if chaine_de_caractere in mot.keys():
