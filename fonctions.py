@@ -48,7 +48,7 @@ print(TF(repertoire_cleaned))
 
 def premier_pres_climat():
     liste_presidents = ["deGaulle", "Pompidou", "Giscard dEstaing", "Mitterrand", "Chirac", "Sarkozy", "Hollande", "Macron"]
-    # On crée une liste avec tous les présidents de France dans l'ordre chronologique
+    # On crée une liste avec tous les présidents de la Ve république dans l'ordre chronologique pour que la fonction fonctionne si l'on rajoute des textes d'autres présidents
     for i in liste_presidents:
         if i in noms:
             liste_mots = TF_president(i)
