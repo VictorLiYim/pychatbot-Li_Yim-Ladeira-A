@@ -1,7 +1,7 @@
 from TF_IDF import *
 
 def liste_mot_non_importants(Matrice):
-    liste_non_important = []
+    liste_non_important = [] # On crée une liste dans laquelle on va rajouter tous les mots nons-importants
     for i in Matrice:
         cpt = 0
         for j in i:
@@ -9,16 +9,6 @@ def liste_mot_non_importants(Matrice):
                 cpt+=1
         if cpt == 0:
             liste_non_important.append(i)
-    Liste = liste_totale(repertoire, 0)
-    # On crée une liste dans laquelle on va rajouter tous les mots nons-importants
-    for i in range(0, len(Matrice)):
-        cpt = 0 #initialisation du compteur permettant de savoir si le score tf-idf a n ligne permettant de savoir si on considère le mot comme non important
-        for j in Matrice[i]:
-            if j != 0:
-                cpt+=1
-        if cpt == 0:
-            liste_non_important.append(Liste[i])
-    # On parcourt la matrice avec les scores finaux et on ajoute à la liste les mots ayant un score de 0
     if liste_non_important == []:
         return "Il n'y a pas de mots considéré comme non important"
     else:
