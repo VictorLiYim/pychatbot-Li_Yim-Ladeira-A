@@ -2,13 +2,14 @@ from TF_IDF import *
 
 def liste_mot_non_importants(Matrice):
     liste_non_important = [] # On crée une liste dans laquelle on va rajouter tous les mots nons-importants
-    for i in Matrice:
+    Liste = liste_totale(repertoire_cleaned, 0) #importation de la liste de tout les mots
+    for i in range(0,len(Matrice)):
         cpt = 0
-        for j in i:
+        for j in Matrice[i]:
             if j != 0:
                 cpt+=1
         if cpt == 0:
-            liste_non_important.append(i)
+            liste_non_important.append(Liste[i])
     if liste_non_important == []:
         return "Il n'y a pas de mots considéré comme non important"
     else:
