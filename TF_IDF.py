@@ -192,7 +192,7 @@ def IDF(repertoire):
     # On compte le nombre de texte dans lequel est chaque mot et on ajoute cette valeur dans le dictionnaire
     # On initialise un dictionnaire dico_idf qui contiendra les scores IDF de chaque mot.
     for k in dico_mot:
-        score = log10(len(files_names)/(dico_mot[k])+1)
+        score = log10(len(files_names)/(dico_mot[k]))
         dico_idf[k] = score
     return dico_idf
     # On calcule le score IDF pour chaque mot et on les ajoute dans le dictionnaire qu'on retourne juste après
