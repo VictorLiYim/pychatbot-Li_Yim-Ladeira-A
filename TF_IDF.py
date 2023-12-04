@@ -111,7 +111,8 @@ def count_TF(chaine, mot):
     if chaine_de_caractere in mot.keys():
         mot[chaine_de_caractere] += 1
     else:
-        mot[chaine_de_caractere] = 1
+        if chaine_de_caractere != "":
+            mot[chaine_de_caractere] = 1
     return mot
     # On refait la même manipulation une dernière fois pour le dernier mot du fichier qui n'a pas été comptabilisé dans la boucle, puis on retourne le dictionnaire
 
