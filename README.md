@@ -11,12 +11,12 @@ Fonctionnalités principales :
   - Afficher les mots les plus répétés par un président,
   - Afficher le ou les présidents qui ont dit "Nation" et préciser celui qui l'a dit le plus de fois,
   - Afficher quel président du corpus de texte a parlé en premier d'écologie ou de climat,
-  - Affichier quels sont les mots que tous les présidents ont évoqué.
+  - Afficher quels sont les mots que tous les présidents ont évoqués,
+  - Générer une réponse à une question posée par l'utilisateur.
 
 Instructions d'execution :
-  - Avant de lancer le programme principal, il ne faut pas oublier de modifier tous les chemins indiqués dans les fonctions,
-  - Modifier le chemin pour repertoire_cleaned,
-  - Lancer le programme sur le main pour appeler la fonction menu,
+  - Lancer le programme sur "main",
   - Suivre les instructions écrites en console pour sélectionner l'action souhaitée,
   - Attendre 3 secondes entre chaque commande pour laisser le temps au programme de bien tout afficher,
-  - Pour quitter le programme, écrire "7".
+  - Pour la partie question-réponse du chatbot, poser une question et attendre la réponse du programme. Pour quitter la partie chatbot, écrire "quitter",
+  - Pour quitter le programme, écrire "8".
