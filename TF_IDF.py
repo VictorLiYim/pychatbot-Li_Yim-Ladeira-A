@@ -20,13 +20,70 @@ def tri_selection(t):
             t[i], t[j_min] = t[j_min], t[i]
     return t
 
+def separe_chaine(phrase, delimitation=' '):
+    nphrase = ""
+    for mot in phrase:
+        for i in mot:  # On ouvre chaque fichier et on regarde chaque caractère individuellement
+            if ord (i) >= 65 and ord (i) <= 90:
+                nphrase += chr(ord(i) + 32)
+            elif ord(i) == 39:
+                nphrase += "e "
+            elif (ord(i) == 44) or (ord(i) == 10):
+                nphrase += ""
+            elif (ord (i) >= 33 and ord (i) != 39 and ord (i) <= 47) or (ord (i) >= 58 and ord (i) <= 64) or (
+                    ord (i) >= 91 and ord (i) <= 96) or (ord (i) >= 123 and ord (i) <= 126):
+                nphrase += " "
+            else:
+                nphrase += i
+    split_list = []
+    mot = ''
+    for c in nphrase:
+        if c != delimitation:
+            mot += c
+        else:
+            if mot != "":
+                split_list.append(mot)
+                mot = ''
+    # Ajouter le dernier mot après la dernière occurrence du délimiteur
+    if mot != "":
+        split_list.append(mot)
+    return split_list
+
 def take_name():
-    noms = [nom.split('_')[1].split('.')[0] for nom in files_names]
-    #l'indice indique quelle partie on veut garder. On suprrime la première partie du nom du fichier avec l epremier split
-    # Ensuite on fait un deuxième split pour supprimer cette fois ci tout ce qui est écrit après le point
+    liste_noms = []
+    noms = []
+    for i in files_names:
+        i = separe_chaine(i) #Décompose la liste des noms des fichiers par mots
+        if len(i) == 4: #Pour le cas de Giscard d estaing
+            liste_noms.append(i[1]+" "+i[2])
+        else:
+            liste_noms.append(i[1])
+        nvnom = ""
+        if len(i) == 4:  # Pour le cas de Giscard d estaing
+            for j in range(0, len(i[1])):  # On transforme la première lettre de Giscard en majuscule
+                if j == 0:
+                    nvnom += chr(ord(i[1][j]) - 32)
+                else:
+                    nvnom += i[1][j]
+            nvnom += " "
+            for l in range(0, len(i[2]) - 1):  # On transforme la deuxième lettre de d estaing comme dans le fichier en majuscule
+                if l == 1:
+                    nvnom += chr(ord(i[2][l]) - 32)
+                else:
+                    nvnom += i[2][l]
+            noms.append(nvnom)
+            nvnom = ""
+        else:
+            for k in range(0, len(i[1])):
+                if k == 0:
+                    nvnom += chr(ord(i[1][k]) - 32)
+                else:
+                    nvnom += i[1][k]
+            noms.append(nvnom)
+            nvnom = ""
     nom = ""
     verif = True
-    for i in range(0, len(noms)-1):
+    for i in range(0, len(noms)):
         for j in range(0,len(noms[i])):
             if (ord(noms[i][j])>=57 or ord(noms[i][j])<=48) and verif:
                 nom += noms[i][j]
@@ -35,16 +92,45 @@ def take_name():
         noms[i] = nom
         nom = ""
     noms = set(noms)
-    noms = list(noms)
-    noms = list(tri_selection(noms))
+    noms = tri_selection(list(noms))
     return noms
 
 noms = take_name()
+files_names = tri_selection(files_names)
+
 def take_name_numerote():
-    noms_num = [nom.split('_')[1].split('.')[0] for nom in files_names]
+    noms_num = []
+    for i in files_names:
+        i = separe_chaine(i)  # Décompose la liste des noms des fichiers par mots
+        nvnom = ""
+        if len(i) == 4:  # Pour le cas de Giscard d estaing
+            for j in range(0, len(i[1])): #On transforme la première lettre de Giscard en majuscule
+                if j == 0:
+                    nvnom += chr(ord(i[1][j]) - 32)
+                else:
+                    nvnom += i[1][j]
+            nvnom += " "
+            for l in range(0, len(i[2])-1):#On transforme la deuxième lettre de d estaing comme dans le fichier en majuscule
+                if l == 1:
+                    nvnom += chr(ord(i[2][l]) - 32)
+                else:
+                    nvnom += i[2][l]
+            noms_num.append(nvnom)
+            nvnom = ""
+        else:
+            for k in range(0, len(i[1])):
+                if k == 0:
+                    nvnom += chr(ord(i[1][k])-32)
+                else:
+                    nvnom += i[1][k]
+            noms_num.append(nvnom)
+            nvnom = ""
     noms_num = set(noms_num)
     noms_num = tri_selection(list(noms_num))
     return noms_num
+
+noms = take_name()
+files_names = tri_selection(files_names)
 noms_num = take_name_numerote()
 
 def asso_prenom():
@@ -63,7 +149,6 @@ def asso_prenom():
             print("Nicolas", i)
     return " "
 
-
 def crea_doss():
     try:
         os.mkdir("/workspaces/pychatbot-Li_Yim-Ladeira-A/cleaned")
@@ -72,7 +157,7 @@ def crea_doss():
 
 def copy_file(file):
     for i in file:
-        with open ("/workspaces/pychatbot-Li_Yim-Ladeira-A/speeches-20231105/" + i, "r") as f1, open ("/workspaces/pychatbot-Li_Yim-Ladeira-A/cleaned/" + i,"w") as f2:
+        with open ("speeches-20231105/" + i, "r") as f1, open ("cleaned/" + i,"w") as f2:
              lignes = f1.readlines()
              for mot in lignes:
                 for j in mot:
@@ -124,7 +209,8 @@ def TF(directory):
                 occurence = count_TF(ligne, occurence)
     fichier.close()
     return occurence
-repertoire_cleaned = "/workspaces/pychatbot-Li_Yim-Ladeira-A/cleaned"
+
+repertoire_cleaned = "cleaned"#on l'utilisera pour l'execution des fonctions demandant un répertoire
 
 def TF_document(repertoire,name):
     occurence = {}
@@ -159,7 +245,7 @@ def liste_totale(repertoire, option):
         # On crée une liste qui contient les listes L1 à L8 pour pouvoir les remplir
         with open(repertoire+"/" + i, "r") as f1:
              for phrase in f1:
-                for word in phrase.split():
+                for word in separe_chaine(phrase):
                     if word not in L[n]:
                         L[n].append(word)
               # Les deux "for" permettent de prendre chaque mot individuellement, puis les ajouter aux listes L1 à L8 en fonction du fichier
@@ -213,3 +299,15 @@ def score_final(repertoire):
             valeur_tfidf = valeurtf*valeuridf
             TFIDF[i].append(valeur_tfidf)
     return TFIDF
+
+def transpose_matrice(matrice):
+    # Trouver le nombre de lignes et de colonnes dans la matrice
+    ligne = len(matrice)
+    colonne = len(matrice[0])
+    transposee = [] # Initialiser une nouvelle matrice pour la transposée
+    for j in range(colonne): # Parcourir les colonnes de la matrice d'entrée
+        nligne = []# Initialiser une nouvelle ligne pour chaque colonne
+        for i in range(ligne): # Parcourir les lignes de la matrice d'entrée
+            nligne.append(matrice[i][j])# Ajouter les éléments transposés à la nouvelle ligne
+        transposee.append(nligne)# Ajouter la nouvelle ligne à la matrice transposée
+    return transposee

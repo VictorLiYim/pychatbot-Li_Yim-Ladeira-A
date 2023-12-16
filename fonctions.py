@@ -31,19 +31,19 @@ def liste_score_important(Matrice):
 
 def mot_plus_repete(repertoire, president):
     dico = TF_president(repertoire, president)
-    liste_non_mots = ["le", "nos", "de", '', 'la', 'et', "les", "à", "une", "des", "que", "je", "pour", "elle", "ce", "se", "est", "du"
-                      "a", "notre", "parce"]
-    #La liste liste_non_mots permet d'éviter de compter tout les déterminants qui seront affichés avant les mots qu'on souhaite réellement afficher
+    liste_non_important = liste_mot_non_importants(score_final(repertoire_cleaned))
+    non_mots = ["à", "elle", "ne", "pas", "nous", "nos", "notre", "parce", "que", "veut", "au"]
+    # La liste liste_non_mots permet d'éviter de compter tout les déterminants qui seront affichés avant les mots qu'on souhaite réellement afficher
     liste = []
     #liste permet de contenir les mots qui ont le même score TF
     max = 0
-    #max permet de comparé les différentes valeurs de TF entre les mots
+    # max permet de comparé les différentes valeurs de TF entre les mots
     for tf in dico:
-        if dico[tf] > max and tf not in liste_non_mots and len(tf)>4: #vérifie si la valeur TF est supérieur au maximum et si le mot ne fait pas partie des déterminants
-            max = dico[tf] #Remplace la valeur de max par la nouvelle si la condition est vérifiée
-            liste = [tf] #Si la valeur est strictement supérieure au maximum réinitialise la liste tout en insérant le mot concerné
-        elif dico[tf] == max and tf not in liste_non_mots and len(tf)>4:
-            liste.append(tf) #si la valeur TF du mot est la même que le maximum au lieu de réinitialiser on l'insère dans la liste directement
+        if dico[tf] > max and tf not in liste_non_important and tf not in non_mots:  # vérifie si la valeur TF est supérieur au maximum et si le mot ne fait pas partie des déterminants
+            max = dico[tf]  # Remplace la valeur de max par la nouvelle si la condition est vérifiée
+            liste = [tf]  # Si la valeur est strictement supérieure au maximum réinitialise la liste tout en insérant le mot concerné
+        elif dico[tf] == max and tf not in liste_non_important and tf not in non_mots:
+            liste.append(tf)  # si la valeur TF du mot est la même que le maximum au lieu de réinitialiser on l'insère dans la liste directement
     return liste, max, "fois"
   
 def premier_pres_climat():
@@ -75,16 +75,15 @@ def recherche_president(repertoire, mot):
     return "Voici la liste des présidents qui ont cité le mot", mot, liste_president, "et celui qui a le plus répété ce mot est", nom, max, "fois."
 
 def premier_pres_climat(repertoire):
-    liste_presidents = ["deGaulle", "Pompidou", "Giscard dEstaing", "Mitterrand", "Chirac", "Sarkozy", "Hollande", "Macron"]
-    # On crée une liste avec tous les présidents de la Ve république dans l'ordre chronologique pour que la fonction fonctionne si l'on rajoute des textes d'autres présidents
-    for i in liste_presidents:
-        if i in noms:
-            liste_mots = TF_president(repertoire,i)
-            if "clima" in str(liste_mots.keys()) or "écologi" in str(liste_mots.keys()):
-                return i
-    # On parcourt chaque texte dans l'ordre chronologique pour voir si le texte contient un mot commençant par "clima" ou "écologi" pour prendre en compte les mots "écologiques", "climatique", ect... puis on retourne le nom du président
+    liste_president = []#Initialisation d'une liste qui va contenir les noms des présidents ayant parle de l'écologie ou du climat
+    for i in noms: #liste composé de ['Chirac', 'Giscard dEstaing', 'Hollande', 'Macron', 'Mitterrand', 'Sarkozy']
+        liste_mots = TF_president(repertoire,i)
+        if "clima" in str(liste_mots.keys()) or "écologi" in str(liste_mots.keys()):# On parcourt chaque texte pour voir si le texte contient un mot commençant par "clima"
+        # ou "écologi" pour prendre en compte les mots "écologiques", "climatique", ect...
+            liste_president.append(i) #Si la condition est vérifiée on ajoute le nom du président
+    return "les présidents ayant parlé du climat ou de l'écologie sont :",liste_president
 
-def recherche_mot(repertoire):
+def recherche_mot(repertoire):#fonction supprimée de l'énoncé
     matrice = score_final(repertoire)
     Liste = liste_totale(repertoire, 0)
     liste_mot = []
@@ -95,4 +94,4 @@ def recherche_mot(repertoire):
                 cpt+=1
         if cpt == 8: #si le compteur est égal à 8 cela signifie que le mot concerné est présent dans les 8 documents
             liste_mot.append(Liste[mot]) 
-    return liste_mot
+    return liste_mot, "fonction inutile"
