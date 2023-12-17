@@ -9,9 +9,9 @@ Fonctionnalités principales :
   - Afficher la liste des mots les moins importants dans un corpus de texte,
   - Afficher les mots avec le score le plus élevé,
   - Afficher les mots les plus répétés par un président,
-  - Afficher le ou les présidents qui ont dit "Nation" et préciser celui qui l'a dit le plus de fois,
-  - Afficher quel président du corpus de texte a parlé en premier d'écologie ou de climat,
-  - Afficher quels sont les mots que tous les présidents ont évoqués,
+  - Afficher le ou les présidents qui ont dit un mot précisé par l'utilisateur et préciser celui qui l'a dit le plus de fois,
+  - Afficher quels sont les présidents du corpus de texte qui ont parlé d'écologie ou de climat,
+  - Afficher quels sont les mots que tous les présidents ont évoqués(fonction supprimé de l'énoncé),
   - Générer une réponse à une question posée par l'utilisateur.
 
 Instructions d'execution :
