@@ -1,7 +1,10 @@
+#Fichier permettant l'exécution du menu ainsi que du chatbot
+#Ce fichier est le seul qui aura une interaction avec l'utilisateur
 from fonctions import *
 from question import *
 import time
 
+#La fonction chatbot reprend toutes le fonctions du fichier question permettant de répondre à la question de l'utilisateur
 def chatbot():
     continuer = True
     while continuer:
@@ -17,7 +20,7 @@ def chatbot():
                   "Mot ayant le TF-IDF le plus élevé :", maxTFIDF(calcul_tfidf(question, repertoire_cleaned)), "\n"
                   "Réponse :", affiner_reponse(question, generation_reponse(question, repertoire_cleaned)))
 
-
+#La fonction menu permet à l'utilisateur de tester les fonctions de traitement de documents ou bien le chatbot
 def menu():
     continuer = True
     while continuer:
