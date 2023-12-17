@@ -1,15 +1,21 @@
+#Ce fichier regroupe toutes les fonctions de traitements de document surtout pour le calculer du score TF-IDF et regroupe
+#les fonctions supplémentaires
 import os
 from math import *
 
+#fonction permettant de lister tous les noms des documents
 def list_of_files(directory, extension):
     files_names = []
     for filename in os.listdir(directory):
         if filename.endswith(extension):
             files_names.append(filename)
     return files_names
+    
 directory = "/workspaces/pychatbot-Li_Yim-Ladeira-A/speeches-20231105"
 files_names = list_of_files(directory, "txt")
 
+
+#Fonction qui utilise la méthode de tri par sélection sur une liste donnée
 def tri_selection(t):
     for i in range(len(t) - 1):
         j_min = i
@@ -20,6 +26,7 @@ def tri_selection(t):
             t[i], t[j_min] = t[j_min], t[i]
     return t
 
+#fonction equivalente à la fonction prédéfinie .split()
 def separe_chaine(phrase, delimitation=' '):
     nphrase = ""
     for mot in phrase:
@@ -49,6 +56,7 @@ def separe_chaine(phrase, delimitation=' '):
         split_list.append(mot)
     return split_list
 
+#Fonction permettant de récupérer tous les noms des présidents à partir des noms de documents
 def take_name():
     liste_noms = []
     noms = []
@@ -66,7 +74,7 @@ def take_name():
                 else:
                     nvnom += i[1][j]
             nvnom += " "
-            for l in range(0, len(i[2]) - 1):  # On transforme la deuxième lettre de d estaing comme dans le fichier en majuscule
+            for l in range(0, len(i[2])):  # On transforme la deuxième lettre de d estaing comme dans le fichier en majuscule
                 if l == 1:
                     nvnom += chr(ord(i[2][l]) - 32)
                 else:
@@ -98,6 +106,7 @@ def take_name():
 noms = take_name()
 files_names = tri_selection(files_names)
 
+#Fonction permettant de lister tous les noms des présidents en gardant les numéros
 def take_name_numerote():
     noms_num = []
     for i in files_names:
@@ -110,7 +119,7 @@ def take_name_numerote():
                 else:
                     nvnom += i[1][j]
             nvnom += " "
-            for l in range(0, len(i[2])-1):#On transforme la deuxième lettre de d estaing comme dans le fichier en majuscule
+            for l in range(0, len(i[2])):#On transforme la deuxième lettre de d estaing comme dans le fichier en majuscule
                 if l == 1:
                     nvnom += chr(ord(i[2][l]) - 32)
                 else:
@@ -133,6 +142,7 @@ noms = take_name()
 files_names = tri_selection(files_names)
 noms_num = take_name_numerote()
 
+#Fonction associant les prénoms aux noms
 def asso_prenom():
     for i in noms:
         if i == "Chirac":
@@ -148,13 +158,16 @@ def asso_prenom():
         else:
             print("Nicolas", i)
     return " "
-
+    
+#print(asso_prenom())
+#Fonction permettant la création de dosssier
 def crea_doss():
     try:
         os.mkdir("/workspaces/pychatbot-Li_Yim-Ladeira-A/cleaned")
     except:
         return " "
 
+#Fonction permettant de copier les fichiers de speeches dans le nouveau dossier cleaned
 def copy_file(file):
     for i in file:
         with open ("speeches-20231105/" + i, "r") as f1, open ("cleaned/" + i,"w") as f2:
@@ -179,6 +192,7 @@ def copy_file(file):
 
 print(copy_file(files_names))
 
+#Fonction permettant le calcul d'occurrence d'un mot
 def count_TF(chaine, mot):
     chaine_de_caractere = ""    # On initialise une chaine de caractère ne contenant aucun caractère
     for i in chaine:
@@ -201,6 +215,7 @@ def count_TF(chaine, mot):
     return mot
     # On refait la même manipulation une dernière fois pour le dernier mot du fichier qui n'a pas été comptabilisé dans la boucle, puis on retourne le dictionnaire
 
+#Fonction permettant de renvoyer le TF de tous les mots d'un corpus
 def TF(directory):
     occurence = {}
     for i in files_names:
@@ -212,6 +227,7 @@ def TF(directory):
 
 repertoire_cleaned = "cleaned"#on l'utilisera pour l'execution des fonctions demandant un répertoire
 
+#Fonction permettant de renvoyer le TF des mots d'un document spécifique
 def TF_document(repertoire,name):
     occurence = {}
     # On crée un dictionnaire qui contiendra le nombre d'occurences de chaque mot pour chaque document
@@ -223,6 +239,7 @@ def TF_document(repertoire,name):
     fichier.close()
     return occurence
 
+#Fonction permettant de renvoyer le TF des mots de tous les discours d'un président spécifique, par exemple chirac1 et chirac2
 def TF_president(repertoire, name):
     occurence = {}
     # On crée un dictionnaire qui contiendra le nombre d'occurences de chaque mot pour chaque président
@@ -234,6 +251,7 @@ def TF_president(repertoire, name):
     fichier.close()
     return occurence
 
+#Fonction permettant d'avoir la liste de tous les mots du corpus
 def liste_totale(repertoire, option):
     L1,L2,L3,L4,L5,L6,L7,L8 = [],[],[],[],[],[],[],[]
     # On crée une liste pour chaque texte, chaque liste contenant l'ensemble des mots de chaque texte
@@ -260,7 +278,8 @@ def liste_totale(repertoire, option):
     else:
         return L
     # En fonction du paramètre "option", on retourne soit la liste contenant l'ensemble des mots du corpus de texte sans les doublons, soit la liste L contenant l'ensemble des mots de chaque texte 
-    
+
+#Fonction permettant de calculer le score IDF de tous les mots du corpus    
 def IDF(repertoire):
     Liste = liste_totale(repertoire, 0)
     L = liste_totale(repertoire,1)
@@ -283,6 +302,7 @@ def IDF(repertoire):
     return dico_idf
     # On calcule le score IDF pour chaque mot et on les ajoute dans le dictionnaire qu'on retourne juste après
 
+#Fonction permettant de renvoyer le score TF-IDF de tous les mots du corpus dans un dictionnaire
 def score_final(repertoire):
     Liste_totale = liste_totale(repertoire_cleaned, 0) #liste de tout les mots de tout les fichiers réunis
     dico_idf = IDF(repertoire_cleaned) #dictionnaire de toutes les valeurs de IDF
@@ -300,6 +320,7 @@ def score_final(repertoire):
             TFIDF[i].append(valeur_tfidf)
     return TFIDF
 
+#Fonction permettant de calculer la transposée d'une matrice
 def transpose_matrice(matrice):
     # Trouver le nombre de lignes et de colonnes dans la matrice
     ligne = len(matrice)
