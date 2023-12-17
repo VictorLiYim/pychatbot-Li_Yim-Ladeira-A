@@ -1,5 +1,9 @@
-#Ce fichier regroupe toutes les fonctions de traitements de document surtout pour le calculer du score TF-IDF et regroupe
-#les fonctions supplémentaires
+"""
+PROJET PYTHON CHATBOT,
+Victor LI YIM, Evan LADEIRA,
+Ce fichier regroupe toutes les fonctions de traitement de document, surtout pour le calculer du score TF-IDF, et regroupe
+les fonctions supplémentaires.
+"""
 import os
 from math import *
 
