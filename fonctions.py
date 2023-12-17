@@ -1,5 +1,9 @@
+# Ce fichier permet de regrouper toutes les fonctions interactives avec l'utilisateur, il s'agit des fonctionnalités 
+# à développer lors de la partie 1 du projet
+
 from TF_IDF import *
 
+# Fonction renvoyant la liste des mots jugées non importants
 def liste_mot_non_importants(Matrice):
     liste_non_important = [] # On crée une liste dans laquelle on va rajouter tous les mots nons-importants
     Liste = liste_totale(repertoire_cleaned, 0) #importation de la liste de tout les mots
@@ -16,6 +20,7 @@ def liste_mot_non_importants(Matrice):
         return liste_non_important
     # Si la liste contient des valeurs, on retourne la liste contenant ces valeurs, sinon on retourne la chaine de caractère disant qu'il n'y a aucun mot non important
 
+# Fonction renvoyant la liste du ou des mots ayant le score TF-IDF le plus important
 def liste_score_important(Matrice):
     Liste = liste_totale(repertoire_cleaned, 0)
     score_eleve = []
@@ -29,6 +34,7 @@ def liste_score_important(Matrice):
                 score_eleve.append(Liste[ligne])
     return score_eleve, max
 
+# Fonction qui renvoie le ou les mots le plus répété par un président spécifique
 def mot_plus_repete(repertoire, president):
     dico = TF_president(repertoire, president)
     liste_non_important = liste_mot_non_importants(score_final(repertoire_cleaned))
@@ -45,17 +51,9 @@ def mot_plus_repete(repertoire, president):
         elif dico[tf] == max and tf not in liste_non_important and tf not in non_mots:
             liste.append(tf)  # si la valeur TF du mot est la même que le maximum au lieu de réinitialiser on l'insère dans la liste directement
     return liste, max, "fois"
-  
-def premier_pres_climat():
-    liste_presidents = ["deGaulle", "Pompidou", "Giscard dEstaing", "Mitterrand", "Chirac", "Sarkozy", "Hollande", "Macron"]
-    # On crée une liste avec tous les présidents de la Ve république dans l'ordre chronologique pour que la fonction fonctionne si l'on rajoute des textes d'autres présidents
-    for i in liste_presidents:
-        if i in noms:
-            liste_mots = TF_president(i)
-            if "clima" in str(liste_mots.keys()) or "écologi" in str(liste_mots.keys()):
-                return i
-    # On parcourt chaque texte dans l'ordre chronologique pour voir si le texte contient un mot commençant par "clima" ou "écologi" pour prendre en compte les mots "écologiques", "climatique", ect... puis on retourne le nom du président
 
+# Fonction qui renvoi la liste des présidents ayant cité un mot précisé par l'utilisateur ainsi que le nom de celui qui
+# l'a répété le plus de fois
 def recherche_president(repertoire, mot):
     liste_president = [] #liste des présidents ayant cité le mot recherché
     ocurrence = {} #dictionnaire des ocurrences du mot
@@ -74,6 +72,7 @@ def recherche_president(repertoire, mot):
             nom = president #récupère le nom du président qui a la plus grande ocurrence du mot recherché
     return "Voici la liste des présidents qui ont cité le mot", mot, liste_president, "et celui qui a le plus répété ce mot est", nom, max, "fois."
 
+# Fonction qui renvoi le nom du ou des présidents ayant parlé du climat ou de l'écologie
 def premier_pres_climat(repertoire):
     liste_president = []#Initialisation d'une liste qui va contenir les noms des présidents ayant parle de l'écologie ou du climat
     for i in noms: #liste composé de ['Chirac', 'Giscard dEstaing', 'Hollande', 'Macron', 'Mitterrand', 'Sarkozy']
@@ -83,6 +82,7 @@ def premier_pres_climat(repertoire):
             liste_president.append(i) #Si la condition est vérifiée on ajoute le nom du président
     return "les présidents ayant parlé du climat ou de l'écologie sont :",liste_president
 
+#Fonction qui recherche les mots répétés par tous les présidents
 def recherche_mot(repertoire):#fonction supprimée de l'énoncé
     matrice = score_final(repertoire)
     Liste = liste_totale(repertoire, 0)
