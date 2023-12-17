@@ -1,5 +1,9 @@
-# Ce fichier permet de regrouper toutes les fonctions interactives avec l'utilisateur, il s'agit des fonctionnalités 
-# à développer lors de la partie 1 du projet
+"""
+PROJET PYTHON CHATBOT,
+Victor LI YIM, Evan LADEIRA,
+Ce fichier permet de regrouper toutes les fonctions interactives avec l'utilisateur,
+Il s'agit des fonctionnalités à développer lors de la partie 1 du projet.
+"""
 
 from TF_IDF import *
 
