@@ -1,11 +1,16 @@
+# Fichier utilisé par le chatbot, Il comporte toutes les fonctions permettant au traitement de la question posée par
+# l'utilisateur
 from TF_IDF import*
 
+# Fonction permet de séparer dans une liste tous les termes qui compose la question en nettoyant la question de tous
+# les caractères spéciaux
 def separation(question):
     nquestion = separe_chaine(question)
     return nquestion
 
 #print(separation(question))
-
+# Fonction permettant de faire le tri, autrement dit la fonction supprime les mots ne faisant pas partie du corpus du
+# document
 def tri(liste):
     mot_corpus = []
     Liste = liste_totale(repertoire_cleaned, 0)
@@ -15,6 +20,7 @@ def tri(liste):
     return mot_corpus
 #print(tri(separation(question)))
 
+# Fonction qui calcule le vecteur Tf-idf de la question posée par l'utilisateur
 def calcul_tfidf(question, repertoire = repertoire_cleaned):# Fonction pour calculer le vecteur TF-IDF d'une question
     # Calcul du score TF pour chaque mot dans la question
     tf_scores = {}
@@ -42,6 +48,7 @@ def calcul_tfidf(question, repertoire = repertoire_cleaned):# Fonction pour calc
 
 score_transpo = transpose_matrice(score_final(repertoire_cleaned))
 
+#Fonction calculant le produit scalaire de la question et de la matrice score final
 def produit_scalaire(vecteurA, vecteurB):
     somme = 0
     l = []
@@ -54,6 +61,7 @@ def produit_scalaire(vecteurA, vecteurB):
     return l
 
 #print(produit_scalaire(calcul_tfidf(question, repertoire_cleaned), transpose_matrice(score_final(repertoire_cleaned))))
+# Fonction qui prend en paramètre un vecteur et qui renvoi sa norme
 def norme_vecteur(vecteur):
     somme = 0
     for i in range(len(vecteur)):
@@ -63,6 +71,7 @@ def norme_vecteur(vecteur):
     return norme
 #print(norme_vecteur(calcul_tfidf (question, repertoire_cleaned)))
 
+#Fonction qui prend en paramètre deux vecteurs et qui renvoie le score de similarité entre les deux
 def similarite(vecteurA, vecteurB):
     """
     :param vecteurA: vecteur tf-idf de la question
@@ -75,7 +84,7 @@ def similarite(vecteurA, vecteurB):
     return score
 
 #print(similarite(calcul_tfidf(question, repertoire_cleaned), score_transpo))
-
+# Fonction qui renvoie le nom du document trouvé le plus pertinent selon les calculs
 def document_pertinent(similarite):
     """
     :param similarite: score de similarité
@@ -90,8 +99,8 @@ def document_pertinent(similarite):
     return files_names[indice]
 
 #print(document_pertinent(similarite(calcul_tfidf (question, repertoire_cleaned), score_transpo)))
-
-def maxTFIDF(liste): #Fonction permettant de renvoyer le mot de la question ayant le TF IDF le plus élevé
+# Fonction permettant de renvoyer le mot avec le score TF-IDF le plus élevé dans une question
+def maxTFIDF(liste): 
     max = liste[0]
     indice = 0
     Liste = liste_totale(repertoire_cleaned, 0)
@@ -103,6 +112,7 @@ def maxTFIDF(liste): #Fonction permettant de renvoyer le mot de la question ayan
 
 #print(maxTFIDF(calcul_tfidf(question, repertoire_cleaned)))
 
+# Fonction qui va renvoyer la phrase jugée adaptée à la question
 def generation_reponse(question, repertoire):
     """
     :param question: question posée
@@ -115,7 +125,8 @@ def generation_reponse(question, repertoire):
         for i in file:
             if mot in i:
                 return i
-
+                
+#Fonction permettant de rendre la réponse plus vivante
 def affiner_reponse(question,reponse):
     nouvelle_question = separation(question)
     question_starters = {#on met les clés en minuscule car on va utiliser la fonction separation qui transforme la question en minuscule
