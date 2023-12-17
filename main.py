@@ -1,5 +1,10 @@
-#Fichier permettant l'exécution du menu ainsi que du chatbot
-#Ce fichier est le seul qui aura une interaction avec l'utilisateur
+"""
+PROJET PYTHON CHATBOT,
+Victor LI YIM, Evan LADEIRA,
+Fichier permettant l'exécution du menu ainsi que du chatbot,
+Ce fichier est le seul qui aura une interaction avec l'utilisateur.
+"""
+
 from fonctions import *
 from question import *
 import time
