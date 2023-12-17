@@ -1,5 +1,10 @@
-# Fichier utilisé par le chatbot, Il comporte toutes les fonctions permettant au traitement de la question posée par
-# l'utilisateur
+"""
+PROJET PYTHON CHATBOT,
+Victor LI YIM, Evan LADEIRA,
+Fichier utilisé par le chatbot,
+Il comporte toutes les fonctions permettant au traitement de la question posée par l'utilisateur.
+"""
+
 from TF_IDF import*
 
 # Fonction permet de séparer dans une liste tous les termes qui compose la question en nettoyant la question de tous
