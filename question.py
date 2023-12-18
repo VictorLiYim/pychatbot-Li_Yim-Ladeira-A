@@ -97,7 +97,7 @@ def document_pertinent(similarite):
     """
     max = similarite[0]
     indice = 0
-    for i in range(0, len(similarite)):
+    for i in range(0, len(similarite)-1):
         if similarite[i] > max:
             max = similarite[i]
             indice = i
